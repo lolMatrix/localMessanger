@@ -5,5 +5,6 @@
         public int Id { get; set; }
         public string Body { get; set; }
         public User FromUser { get; set; }
+        public MessageGroup messageGroup { get; set; }
     }
 }

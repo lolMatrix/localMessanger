@@ -1,4 +1,5 @@
 using MessangerServer.Common;
+using MessangerServer.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,7 +26,9 @@ namespace MessangerServer
             services.Configure<AuthOptions>(authConfig);
             services.AddControllers();
             services.AddSingleton(typeof(Repository<>));
-            services.AddScoped<UserService>();
+            services.AddTransient<UserService>();
+            services.AddTransient<GroupService>();
+            services.AddTransient<MessageService>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
