@@ -7,8 +7,6 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["MessangerServer/MessangerServer.csproj", "MessangerServer/"]
-COPY ["Repository/Repository.csproj", "Repository/"]
-COPY ["Entity/Entity.csproj", "Entity/"]
 RUN dotnet restore "MessangerServer/MessangerServer.csproj"
 COPY . .
 WORKDIR "/src/MessangerServer"

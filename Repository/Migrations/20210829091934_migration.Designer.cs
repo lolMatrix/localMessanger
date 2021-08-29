@@ -10,8 +10,8 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210812183327_NewMigration")]
-    partial class NewMigration
+    [Migration("20210829091934_migration")]
+    partial class migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,9 +68,6 @@ namespace Repository.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int?>("MessageGroupId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Password")
                         .HasColumnType("text");
 
@@ -79,9 +76,22 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MessageGroupId");
-
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("MessageGroupUser", b =>
+                {
+                    b.Property<int>("MessageGroupsId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UsersId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("MessageGroupsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("MessageGroupUser");
                 });
 
             modelBuilder.Entity("Entity.Message", b =>
@@ -90,25 +100,33 @@ namespace Repository.Migrations
                         .WithMany()
                         .HasForeignKey("FromUserId");
 
-                    b.HasOne("Entity.MessageGroup", null)
+                    b.HasOne("Entity.MessageGroup", "MessageGroup")
                         .WithMany("Messages")
                         .HasForeignKey("MessageGroupId");
 
                     b.Navigation("FromUser");
+
+                    b.Navigation("MessageGroup");
                 });
 
-            modelBuilder.Entity("Entity.User", b =>
+            modelBuilder.Entity("MessageGroupUser", b =>
                 {
                     b.HasOne("Entity.MessageGroup", null)
-                        .WithMany("Users")
-                        .HasForeignKey("MessageGroupId");
+                        .WithMany()
+                        .HasForeignKey("MessageGroupsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entity.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entity.MessageGroup", b =>
                 {
                     b.Navigation("Messages");
-
-                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }
