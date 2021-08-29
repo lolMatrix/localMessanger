@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Repository.Migrations
 {
-    public partial class NewMigration : Migration
+    public partial class migration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,18 +27,35 @@ namespace Repository.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Username = table.Column<string>(type: "text", nullable: true),
-                    Password = table.Column<string>(type: "text", nullable: true),
-                    MessageGroupId = table.Column<int>(type: "integer", nullable: true)
+                    Password = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MessageGroupUser",
+                columns: table => new
+                {
+                    MessageGroupsId = table.Column<int>(type: "integer", nullable: false),
+                    UsersId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MessageGroupUser", x => new { x.MessageGroupsId, x.UsersId });
                     table.ForeignKey(
-                        name: "FK_Users_MessageGroups_MessageGroupId",
-                        column: x => x.MessageGroupId,
+                        name: "FK_MessageGroupUser_MessageGroups_MessageGroupsId",
+                        column: x => x.MessageGroupsId,
                         principalTable: "MessageGroups",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MessageGroupUser_Users_UsersId",
+                        column: x => x.UsersId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -69,6 +86,11 @@ namespace Repository.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_MessageGroupUser_UsersId",
+                table: "MessageGroupUser",
+                column: "UsersId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Messages_FromUserId",
                 table: "Messages",
                 column: "FromUserId");
@@ -77,23 +99,21 @@ namespace Repository.Migrations
                 name: "IX_Messages_MessageGroupId",
                 table: "Messages",
                 column: "MessageGroupId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_MessageGroupId",
-                table: "Users",
-                column: "MessageGroupId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "MessageGroupUser");
+
+            migrationBuilder.DropTable(
                 name: "Messages");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "MessageGroups");
 
             migrationBuilder.DropTable(
-                name: "MessageGroups");
+                name: "Users");
         }
     }
 }

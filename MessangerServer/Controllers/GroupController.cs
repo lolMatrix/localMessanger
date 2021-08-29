@@ -26,16 +26,16 @@ namespace MessangerServer.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult CreateGroup([FromBody] string name)
+        public IActionResult CreateGroup([FromBody] MessageGroup messageGroup)
         {
-            var group = _groupService.CreateGroup(name, CurrentUser);
+            var group = _groupService.CreateGroup(messageGroup.Name, CurrentUser);
             return Ok(group);
         }
 
         [HttpPost("add-user/{id}")]
-        public IActionResult AddUser(int id, [FromBody] int userId)
+        public IActionResult AddUser(int id, [FromBody] User user)
         {
-            var group = _groupService.AddUserToGroup(_userRepository.FindById(userId), id);
+            var group = _groupService.AddUserToGroup(_userRepository.FindById(user.Id), id);
             return Ok(group);
         }
 

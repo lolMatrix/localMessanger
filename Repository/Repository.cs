@@ -33,5 +33,12 @@ namespace Repository
             context.SaveChanges();
             return entity;
         }
+
+        public Entity Update(Entity entity)
+        {
+            context.Entry(entity).State = EntityState.Modified;
+            context.SaveChanges();
+            return entity;
+        }
     }
 }

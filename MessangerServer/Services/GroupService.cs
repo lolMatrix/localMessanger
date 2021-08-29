@@ -1,5 +1,6 @@
 ﻿using Entity;
 using Repository;
+using System;
 
 namespace MessangerServer.Services
 {
@@ -18,9 +19,9 @@ namespace MessangerServer.Services
             {
                 Name = name
             };
-            newGroup.Users.Add(creator);
             var group = _repository.Save(newGroup);
-
+            newGroup.Users.Add(creator);
+            _repository.Update(newGroup);
             return group;
         }
 
@@ -29,7 +30,12 @@ namespace MessangerServer.Services
             var group = _repository.FindById(groupId);
             group.Users.Add(newUser);
 
-            return _repository.Save(group);
+            return _repository.Update(group);
+        }
+
+        public MessageGroup GetById(int groupId)
+        {
+            return _repository.FindById(groupId);
         }
     }
 }

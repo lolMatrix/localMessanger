@@ -12,16 +12,17 @@ namespace MessangerServer.Services
             _repository = repository;
         }
 
-        public Message sendMessage(User sender, MessageGroup group, string body)
+        public Message SendMessage(User sender, MessageGroup group, string body)
         {
             var message = _repository.Save(new Message()
             {
-                FromUser = sender,
-                Body = body,
-                messageGroup = group
+                Body = body
             });
 
-            return message;
+            message.FromUser = sender;
+            message.MessageGroup = group;
+
+            return _repository.Update(message);
         }
     }
 }
