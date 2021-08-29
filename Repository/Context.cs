@@ -11,7 +11,7 @@ namespace Repository
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=matrixservice;Username=matrix;Password=root");
+            optionsBuilder.UseNpgsql("Host=192.168.1.70;Port=5432;Database=matrixservice;Username=matrix;Password=mrmatrix");
         }
 
     }
