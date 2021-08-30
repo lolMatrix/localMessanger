@@ -1,4 +1,5 @@
 ﻿using Entity;
+using Microsoft.Extensions.Logging;
 using Repository;
 
 namespace MessangerServer.Services
@@ -6,6 +7,7 @@ namespace MessangerServer.Services
     public class MessageService
     {
         private readonly Repository<Message> _repository;
+        private readonly Logger<MessageService> log;
 
         public MessageService(Repository<Message> repository)
         {
@@ -19,8 +21,12 @@ namespace MessangerServer.Services
                 Body = body
             });
 
+            log.LogInformation("Сообщение сохранено");
+
             message.FromUser = sender;
             message.MessageGroup = group;
+
+            log.LogInformation("Иформация об отправителе и группе сообщений сохранена");
 
             return _repository.Update(message);
         }
