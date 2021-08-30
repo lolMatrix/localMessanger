@@ -21,8 +21,7 @@ namespace MessangerServer.Services
             };
             var group = _repository.Save(newGroup);
             newGroup.Users.Add(creator);
-            _repository.Update(newGroup);
-            return group;
+            return _repository.Update(newGroup);
         }
 
         public MessageGroup AddUserToGroup(User newUser, int groupId)
