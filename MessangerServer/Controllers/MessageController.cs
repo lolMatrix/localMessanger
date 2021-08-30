@@ -21,13 +21,13 @@ namespace MessangerServer.Controllers
         private readonly MessageService _messageService;
         private readonly GroupService _groupService;
         private readonly Repository<User> _userRepository;
-        private readonly Logger<MessageController> log;
+        private readonly ILogger<MessageController> log;
 
         private User CurrentUser => _userRepository
             .FindById(int.Parse(User.Claims
                 .Single(c => c.Type == ClaimTypes.NameIdentifier).Value));
 
-        public MessageController(MessageService messageService, Repository<User> userRepository, GroupService groupService, Logger<MessageController> log)
+        public MessageController(MessageService messageService, Repository<User> userRepository, GroupService groupService, ILogger<MessageController> log)
         {
             _messageService = messageService;
             _userRepository = userRepository;

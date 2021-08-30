@@ -7,9 +7,9 @@ namespace MessangerServer.Services
     public class MessageService
     {
         private readonly Repository<Message> _repository;
-        private readonly Logger<MessageService> log;
+        private readonly ILogger<MessageService> log;
 
-        public MessageService(Repository<Message> repository, Logger<MessageService> log)
+        public MessageService(Repository<Message> repository, ILogger<MessageService> log)
         {
             _repository = repository;
             this.log = log;
