@@ -27,11 +27,12 @@ namespace MessangerServer.Controllers
             .FindById(int.Parse(User.Claims
                 .Single(c => c.Type == ClaimTypes.NameIdentifier).Value));
 
-        public MessageController(MessageService messageService, Repository<User> userRepository, GroupService groupService)
+        public MessageController(MessageService messageService, Repository<User> userRepository, GroupService groupService, Logger<MessageController> log)
         {
             _messageService = messageService;
             _userRepository = userRepository;
             _groupService = groupService;
+            this.log = log;
         }
 
         [HttpPost("create/{groupId}")]

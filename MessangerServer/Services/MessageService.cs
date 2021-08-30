@@ -9,9 +9,10 @@ namespace MessangerServer.Services
         private readonly Repository<Message> _repository;
         private readonly Logger<MessageService> log;
 
-        public MessageService(Repository<Message> repository)
+        public MessageService(Repository<Message> repository, Logger<MessageService> log)
         {
             _repository = repository;
+            this.log = log;
         }
 
         public Message SendMessage(User sender, MessageGroup group, string body)
