@@ -39,5 +39,12 @@ namespace MessangerServer.Controllers
             return Ok(group);
         }
 
+        [HttpGet]
+        public IActionResult GetMessageGroupsByUser()
+        {
+            var groups = _groupService.getMessageGroupsByUserId(UserId);
+            return Ok(groups.ToArray());
+        }
+
     }
 }

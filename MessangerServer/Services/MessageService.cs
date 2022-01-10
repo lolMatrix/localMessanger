@@ -1,6 +1,7 @@
 ﻿using Entity;
 using Microsoft.Extensions.Logging;
 using Repository;
+using System.Linq;
 
 namespace MessangerServer.Services
 {
@@ -30,6 +31,12 @@ namespace MessangerServer.Services
             log.LogInformation("Иформация об отправителе и группе сообщений сохранена");
 
             return _repository.Update(message);
+        }
+
+        public Message[] GetMessages(int groupId)
+        {
+            var messages = _repository.GetWithInclude(x => x.MessageGroup, x => x.FromUser);
+            return messages.Where(x => x.MessageGroup != null && x.MessageGroup.Id == groupId).OrderBy(x => x.Id).ToArray();
         }
     }
 }

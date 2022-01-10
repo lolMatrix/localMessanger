@@ -48,5 +48,11 @@ namespace MessangerServer.Controllers
             }
             return Ok(sendedMessage);
         }
+
+        [HttpGet("{groupId}")]
+        public IActionResult GetMessages(int groupId)
+        {
+            return Ok(_messageService.GetMessages(groupId));
+        }
     }
 }

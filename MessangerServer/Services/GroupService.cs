@@ -1,6 +1,8 @@
 ﻿using Entity;
 using Repository;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MessangerServer.Services
 {
@@ -35,6 +37,21 @@ namespace MessangerServer.Services
         public MessageGroup GetById(int groupId)
         {
             return _repository.FindById(groupId);
+        }
+
+        public List<MessageGroup> getMessageGroupsByUserId(int userId)
+        {
+            var groups = _repository.GetWithInclude(x => x.Users);
+            List<MessageGroup> messageGroups = new List<MessageGroup>();
+            foreach (var group in groups)
+            {
+                var user = group.Users.FirstOrDefault(x => x.Id == userId);
+                if (user != null)
+                {
+                    messageGroups.Add(group);
+                }
+            }
+            return messageGroups;
         }
     }
 }

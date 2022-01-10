@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessangerServer", "MessangerServer\MessangerServer.csproj", "{E53254C1-6812-4097-AF6B-877388D47736}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity", "Entity\Entity.csproj", "{2A2230EB-CF99-4C59-AB18-48730F372DD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity", "Entity\Entity.csproj", "{2A2230EB-CF99-4C59-AB18-48730F372DD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{E618822D-09E0-4466-A2E7-3BE506BBC1A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{E618822D-09E0-4466-A2E7-3BE506BBC1A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessangerApp", "MessangerApp\MessangerApp.csproj", "{2AB5256C-7654-4C60-B68E-B28E8CE74E34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,12 @@ Global
 		{E618822D-09E0-4466-A2E7-3BE506BBC1A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E618822D-09E0-4466-A2E7-3BE506BBC1A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E618822D-09E0-4466-A2E7-3BE506BBC1A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AB5256C-7654-4C60-B68E-B28E8CE74E34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AB5256C-7654-4C60-B68E-B28E8CE74E34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AB5256C-7654-4C60-B68E-B28E8CE74E34}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{2AB5256C-7654-4C60-B68E-B28E8CE74E34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AB5256C-7654-4C60-B68E-B28E8CE74E34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AB5256C-7654-4C60-B68E-B28E8CE74E34}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Repository
@@ -19,7 +20,19 @@ namespace Repository
 
         public Entity[] GetEntities()
         {
-            return entities.ToArray();
+            return entities.AsNoTracking().ToArray();
+        }
+
+        public IEnumerable<Entity> GetWithInclude(params Expression<Func<Entity, object>>[] includeProperties)
+        {
+            return Include(includeProperties).ToList();
+        }
+
+        private IQueryable<Entity> Include(params Expression<Func<Entity, object>>[] includeProperties)
+        {
+            IQueryable<Entity> query = entities.AsNoTracking();
+            return includeProperties
+                .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
         }
 
         public Entity FindById(int id)
